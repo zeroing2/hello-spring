@@ -3,22 +3,21 @@ package zeroing2.hellospring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import zeroing2.hellospring.repository.JdbcMemberRepository;
-import zeroing2.hellospring.repository.JdbcTemplateMemberRepository;
-import zeroing2.hellospring.repository.MemberRepository;
-import zeroing2.hellospring.repository.MemoryMemberRepository;
+import zeroing2.hellospring.repository.*;
 import zeroing2.hellospring.service.MemberService;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean
@@ -28,6 +27,6 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }
