@@ -3,6 +3,7 @@ package zeroing2.hellospring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import zeroing2.hellospring.aop.TimeTraceAop;
 import zeroing2.hellospring.repository.*;
 import zeroing2.hellospring.service.MemberService;
 
@@ -23,4 +24,9 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository);
     }
+
+//    @Bean
+//    public TimeTraceAop TimeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 }
